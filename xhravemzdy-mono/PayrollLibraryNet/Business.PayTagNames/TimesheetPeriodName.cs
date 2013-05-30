@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using PayrollLibrary.Business.CoreItems;
+using PayrollLibrary.Business.Core;
+
+namespace PayrollLibrary.Business.PayTagNames
+{
+    class TimesheetPeriodName : PayrollName
+    {
+        public TimesheetPeriodName()
+            : base(PayTagGateway.REF_UNKNOWN,
+                "Job Timesheet hours", "Job Timesheet hours",
+                PayNameGateway.VPAYGRP_SCHEDULE, PayNameGateway.HPAYGRP_UNKNOWN)
+        {
+        }
+    }
+}

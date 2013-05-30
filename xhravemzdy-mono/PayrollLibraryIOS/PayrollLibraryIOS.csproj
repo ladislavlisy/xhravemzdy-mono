@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{44903DCD-3D5D-45A0-B167-0956554837C2}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PayrollLibraryIOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>PayrollLibraryIOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildIpa>true</BuildIpa>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <ConsolePause>false</ConsolePause>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Business.Concepts\HoursAbsenceConcept.cs" />
+    <Compile Include="Business.Concepts\IncomeGrossConcept.cs" />
+    <Compile Include="Business.Concepts\IncomeNettoConcept.cs" />
+    <Compile Include="Business.Concepts\InsuranceHealthBaseConcept.cs" />
+    <Compile Include="Business.Concepts\InsuranceHealthConcept.cs" />
+    <Compile Include="Business.Concepts\InsuranceSocialBaseConcept.cs" />
+    <Compile Include="Business.Concepts\InsuranceSocialConcept.cs" />
+    <Compile Include="Business.Concepts\SavingsPensionsConcept.cs" />
+    <Compile Include="Business.Concepts\ScheduleTermConcept.cs" />
+    <Compile Include="Business.Concepts\TaxAdvanceBaseConcept.cs" />
+    <Compile Include="Business.Concepts\TaxAdvanceConcept.cs" />
+    <Compile Include="Business.Concepts\TaxAdvanceFinalConcept.cs" />
+    <Compile Include="Business.Concepts\TaxBonusChildConcept.cs" />
+    <Compile Include="Business.Concepts\TaxClaimChildConcept.cs" />
+    <Compile Include="Business.Concepts\TaxClaimDisabilityConcept.cs" />
+    <Compile Include="Business.Concepts\TaxClaimPayerConcept.cs" />
+    <Compile Include="Business.Concepts\TaxClaimStudyingConcept.cs" />
+    <Compile Include="Business.Concepts\TaxEmployersHealthConcept.cs" />
+    <Compile Include="Business.Concepts\TaxEmployersSocialConcept.cs" />
+    <Compile Include="Business.Concepts\TaxIncomeBaseConcept.cs" />
+    <Compile Include="Business.Concepts\TaxReliefChildConcept.cs" />
+    <Compile Include="Business.Concepts\TaxReliefPayerConcept.cs" />
+    <Compile Include="Business.Concepts\TaxWithholdBaseConcept.cs" />
+    <Compile Include="Business.Concepts\TaxWithholdConcept.cs" />
+    <Compile Include="Business.Concepts\TimesheetPeriodConcept.cs" />
+    <Compile Include="Business.Concepts\TimesheetWorkConcept.cs" />
+    <Compile Include="Business.Concepts\HoursWorkingConcept.cs" />
+    <Compile Include="Business.Concepts\SalaryMonthlyConcept.cs" />
+    <Compile Include="Business.Concepts\ScheduleWeeklyConcept.cs" />
+    <Compile Include="Business.Concepts\UnknownConcept.cs" />
+    <Compile Include="Business.Core\PayTagGateway.cs" />
+    <Compile Include="Business.Core\PayConceptGateway.cs" />
+    <Compile Include="Business.Core\PayrollProcess.cs" />
+    <Compile Include="Business.Core\PayNameGateway.cs" />
+    <Compile Include="Business.CoreItems\CodeNameRefer.cs" />
+    <Compile Include="Business.CoreItems\PayrollConcept.cs" />
+    <Compile Include="Business.CoreItems\PayrollName.cs" />
+    <Compile Include="Business.CoreItems\PayrollPeriod.cs" />
+    <Compile Include="Business.CoreItems\PayrollResult.cs" />
+    <Compile Include="Business.CoreItems\PayrollTag.cs" />
+    <Compile Include="Business.CoreItems\TagRefer.cs" />
+    <Compile Include="Business.Libs\StringRubyExtension.cs" />
+    <Compile Include="Business.PayTagNames\HoursAbsenceName.cs" />
+    <Compile Include="Business.PayTagNames\HoursWorkingName.cs" />
+    <Compile Include="Business.PayTagNames\IncomeGrossName.cs" />
+    <Compile Include="Business.PayTagNames\IncomeNettoName.cs" />
+    <Compile Include="Business.PayTagNames\InsuranceHealthBaseName.cs" />
+    <Compile Include="Business.PayTagNames\InsuranceHealthName.cs" />
+    <Compile Include="Business.PayTagNames\InsuranceSocialBaseName.cs" />
+    <Compile Include="Business.PayTagNames\InsuranceSocialName.cs" />
+    <Compile Include="Business.PayTagNames\SalaryBaseName.cs" />
+    <Compile Include="Business.PayTagNames\SavingsPensionsName.cs" />
+    <Compile Include="Business.PayTagNames\ScheduleTermName.cs" />
+    <Compile Include="Business.PayTagNames\ScheduleWorkName.cs" />
+    <Compile Include="Business.PayTagNames\TaxAdvanceBaseName.cs" />
+    <Compile Include="Business.PayTagNames\TaxAdvanceFinalName.cs" />
+    <Compile Include="Business.PayTagNames\TaxAdvanceName.cs" />
+    <Compile Include="Business.PayTagNames\TaxBonusChildName.cs" />
+    <Compile Include="Business.PayTagNames\TaxClaimChildName.cs" />
+    <Compile Include="Business.PayTagNames\TaxClaimDisabilityName.cs" />
+    <Compile Include="Business.PayTagNames\TaxClaimPayerName.cs" />
+    <Compile Include="Business.PayTagNames\TaxClaimStudyingName.cs" />
+    <Compile Include="Business.PayTagNames\TaxEmployersHealthName.cs" />
+    <Compile Include="Business.PayTagNames\TaxEmployersSocialName.cs" />
+    <Compile Include="Business.PayTagNames\TaxIncomeBaseName.cs" />
+    <Compile Include="Business.PayTagNames\TaxReliefChildName.cs" />
+    <Compile Include="Business.PayTagNames\TaxReliefPayerName.cs" />
+    <Compile Include="Business.PayTagNames\TaxWithholdBaseName.cs" />
+    <Compile Include="Business.PayTagNames\TaxWithholdName.cs" />
+    <Compile Include="Business.PayTagNames\TimesheetPeriodName.cs" />
+    <Compile Include="Business.PayTagNames\TimesheetWorkName.cs" />
+    <Compile Include="Business.PayTagNames\UnknownName.cs" />
+    <Compile Include="Business.PayTags\SalaryBaseTag.cs" />
+    <Compile Include="Business.PayTags\ScheduleWorkTag.cs" />
+    <Compile Include="Business.PayTags\InsuranceHealthTag.cs" />
+    <Compile Include="Business.PayTags\InsuranceSocialTag.cs" />
+    <Compile Include="Business.PayTags\SavingsPensionsTag.cs" />
+    <Compile Include="Business.PayTags\ScheduleTermTag.cs" />
+    <Compile Include="Business.PayTags\TaxAdvanceBaseTag.cs" />
+    <Compile Include="Business.PayTags\TaxAdvanceFinalTag.cs" />
+    <Compile Include="Business.PayTags\TaxAdvanceTag.cs" />
+    <Compile Include="Business.PayTags\TaxBonusChildTag.cs" />
+    <Compile Include="Business.PayTags\TaxClaimChildTag.cs" />
+    <Compile Include="Business.PayTags\TaxClaimDisabilityTag.cs" />
+    <Compile Include="Business.PayTags\TaxClaimPayerTag.cs" />
+    <Compile Include="Business.PayTags\TaxClaimStudyingTag.cs" />
+    <Compile Include="Business.PayTags\TaxEmployersHealthTag.cs" />
+    <Compile Include="Business.PayTags\TaxEmployersSocialTag.cs" />
+    <Compile Include="Business.PayTags\TaxReliefChildTag.cs" />
+    <Compile Include="Business.PayTags\TaxReliefPayerTag.cs" />
+    <Compile Include="Business.PayTags\TaxWithholdBaseTag.cs" />
+    <Compile Include="Business.PayTags\TaxWithholdTag.cs" />
+    <Compile Include="Business.PayTags\TimesheetPeriodTag.cs" />
+    <Compile Include="Business.PayTags\TimesheetWorkTag.cs" />
+    <Compile Include="Business.PayTags\HoursAbsenceTag.cs" />
+    <Compile Include="Business.PayTags\HoursWorkingTag.cs" />
+    <Compile Include="Business.PayTags\IncomeGrossTag.cs" />
+    <Compile Include="Business.PayTags\IncomeNettoTag.cs" />
+    <Compile Include="Business.PayTags\InsuranceHealthBaseTag.cs" />
+    <Compile Include="Business.PayTags\InsuranceSocialBaseTag.cs" />
+    <Compile Include="Business.PayTags\TaxIncomeBaseTag.cs" />
+    <Compile Include="Business.PayTags\UnknownTag.cs" />
+    <Compile Include="Business.Results\UnknownResult.cs" />
+    <Compile Include="Business.Results\AmountResult.cs" />
+    <Compile Include="Business.Results\IncomeBaseResult.cs" />
+    <Compile Include="Business.Results\PaymentDeductionResult.cs" />
+    <Compile Include="Business.Results\PaymentResult.cs" />
+    <Compile Include="Business.Results\ScheduleResult.cs" />
+    <Compile Include="Business.Results\TaxAdvanceResult.cs" />
+    <Compile Include="Business.Results\TaxClaimResult.cs" />
+    <Compile Include="Business.Results\TaxReliefResult.cs" />
+    <Compile Include="Business.Results\TermEffectResult.cs" />
+    <Compile Include="Business.Results\TermHoursResult.cs" />
+    <Compile Include="Business.Results\TimesheetResult.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
