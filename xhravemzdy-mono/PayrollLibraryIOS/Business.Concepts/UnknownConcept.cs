@@ -10,9 +10,10 @@ namespace PayrollLibrary.Business.Concepts
 {
     public class UnknownConcept : PayrollConcept
     {
-        public UnknownConcept(uint tagCode, IDictionary<string, string> values)
+        public UnknownConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_UNKNOWN, tagCode)
         {
+            InitValues(values);
         }
 
         public override void InitValues(IDictionary<string, object> values)

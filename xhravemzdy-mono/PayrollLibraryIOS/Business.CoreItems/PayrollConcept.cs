@@ -22,6 +22,7 @@ namespace PayrollLibrary.Business.CoreItems
             : base(codeRefer.Code, codeRefer.Name)
         {
             this.TagCode = tagCode;
+            this.TagPendingCodes = null;
         }
 
         public abstract void InitValues(IDictionary<string, object> values);
@@ -115,19 +116,19 @@ namespace PayrollLibrary.Business.CoreItems
         }
 
         // get term from Results by key of tag
-        PayrollResult GetResultBy(IDictionary<TagRefer, PayrollResult> results, uint payTag)
+        protected PayrollResult GetResultBy(IDictionary<TagRefer, PayrollResult> results, uint payTag)
         {
             IDictionary<TagRefer, PayrollResult> resultHash = results.Where( pair => pair.Key.Code==payTag)
                 .ToDictionary(key => key.Key, value => value.Value);
             return resultHash.Values.ElementAt(0);
         }
 
-        decimal BigMulti(decimal op1, decimal op2)
+        protected decimal BigMulti(decimal op1, decimal op2)
         {
             return decimal.Multiply(op1, op2);
         }
 
-        decimal BigDiv(decimal op1, decimal op2)
+        protected decimal BigDiv(decimal op1, decimal op2)
         {
             if (op2 == 0m)
             {
@@ -136,7 +137,7 @@ namespace PayrollLibrary.Business.CoreItems
             return decimal.Divide(op1, op2);
         }
 
-        decimal BigMultiAndDiv(decimal op1, decimal op2, decimal div)
+        protected decimal BigMultiAndDiv(decimal op1, decimal op2, decimal div)
         {
             if (div == 0m)
             {
@@ -145,80 +146,120 @@ namespace PayrollLibrary.Business.CoreItems
             return decimal.Divide(decimal.Multiply(op1, op2), div);
         }
 
-        decimal BigInsuranceRoundUp(decimal valueDec)
+        protected decimal BigInsuranceRoundUp(decimal valueDec)
         {
             return RoundUpToBig(valueDec);
         }
 
 
-        int FixInsuranceRoundUp(decimal valueDec)
+        protected int FixInsuranceRoundUp(decimal valueDec)
         {
             return RoundUpToFix(valueDec);
         }
 
-        decimal BigTaxRoundUp(decimal valueDec)
+        protected decimal BigTaxRoundUp(decimal valueDec)
         {
             return RoundUpToBig(valueDec);
         }
 
-        int FixTaxRoundUp(decimal valueDec)
+        protected int FixTaxRoundUp(decimal valueDec)
         {
             return RoundUpToFix(valueDec);
         }
 
 
-        decimal BigTaxRoundDown(decimal valueDec)
+        protected decimal BigTaxRoundDown(decimal valueDec)
         {
             return RoundDownToBig(valueDec);
         }
 
 
-        int FixTaxRoundDown(decimal valueDec)
+        protected int FixTaxRoundDown(decimal valueDec)
         {
             return RoundDownToFix(valueDec);
         }
 
 
-        decimal RoundUpToBig(decimal valueDec)
+        protected decimal RoundUpToBig(decimal valueDec)
         {
             return (valueDec < 0m ? decimal.Negate(decimal.Ceiling(Math.Abs(valueDec))) : decimal.Ceiling(Math.Abs(valueDec)));
         }
 
 
-        int RoundUpToFix(decimal valueDec)
+        protected int RoundUpToFix(decimal valueDec)
         {
             return decimal.ToInt32(valueDec < 0m ? decimal.Negate(decimal.Ceiling(Math.Abs(valueDec))) : decimal.Ceiling(Math.Abs(valueDec)));
         }
 
 
-        decimal RoundDownToBig(decimal valueDec)
+        protected decimal RoundDownToBig(decimal valueDec)
         {
             return (valueDec < 0m ? decimal.Negate(decimal.Floor(Math.Abs(valueDec))) : decimal.Floor(Math.Abs(valueDec)));
         }
 
 
-        int RoundDownToFix(decimal valueDec)
+        protected int RoundDownToFix(decimal valueDec)
         {
             return decimal.ToInt32(valueDec < 0m ? decimal.Negate(decimal.Floor(Math.Abs(valueDec))) : decimal.Floor(Math.Abs(valueDec)));
         }
 
 
-        decimal BigNearRoundUp(decimal valueDec, int nearest=100)
+        protected decimal BigNearRoundUp(decimal valueDec, int nearest = 100)
         {
             return BigMulti(RoundUpToBig(BigDiv(valueDec, nearest)), nearest);
         }
 
 
-        decimal BigNearRoundDown(decimal valueDec, int nearest=100)
+        protected decimal BigNearRoundDown(decimal valueDec, int nearest = 100)
         {
             return BigMulti(RoundDownToBig(BigDiv(valueDec, nearest)), nearest);
         }
 
 
-        decimal BigDecimalCast(int number)
+        protected decimal BigDecimalCast(int number)
         {
             return new decimal(number);
         }
+
+        #region get values from hash 
+
+        protected int GetIntOrZeroValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is int)) return 0;
+            return (int)obj;
+        }
+
+        protected uint GetUIntOrZeroValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is uint)) return 0;
+            return (uint)obj;
+        }
+
+        protected decimal GetDecimalOrZeroValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is decimal)) return decimal.Zero;
+            return (decimal)obj;
+        }
+
+        protected DateTime? GetDateOrNullValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is DateTime)) return null;
+            return (DateTime)obj;
+        }
+
+        #endregion
 
 
         #region ICloneable Members

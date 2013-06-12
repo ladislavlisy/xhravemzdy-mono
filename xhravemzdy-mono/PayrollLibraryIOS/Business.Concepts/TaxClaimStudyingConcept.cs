@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,14 @@ namespace PayrollLibrary.Business.Concepts
         public TaxClaimStudyingConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_TAX_CLAIM_STUDYING, tagCode)
         {
+            InitValues(values);
         }
 
-        public int VVV { get; private set; }
+        public uint ReliefCode { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.VVV = values[""];
+            this.ReliefCode = GetUIntOrZeroValue(values, "relief_code");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -40,15 +42,46 @@ namespace PayrollLibrary.Business.Concepts
             return new PayrollTag[0];
         }
 
-        public override uint CalcCategory()
-        {
-            return PayrollConcept.CALC_CATEGORY_;
-        }
-
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "", 0 } };
-            return new PayrollResult(TagCode, Code, this, resultValues);
+            decimal reliefValue = ComputeResultValue(period.Year(), ReliefCode);
+
+            var resultValues = new Dictionary<string, object>() { { "tax_relief", reliefValue } };
+            return new TaxClaimResult(TagCode, Code, this, resultValues);
+        }
+
+        private decimal ComputeResultValue(uint year, uint reliefCode)
+        {
+            decimal reliefAmount = 0;
+
+            if (reliefCode == 0)
+            {
+                return 0m;
+            }
+            reliefAmount = StudyingRelief(year);
+            return reliefAmount;
+        }
+
+        private decimal StudyingRelief(uint year)
+        {
+            decimal reliefAmount = 0;
+            if (year >= 2009)
+            {
+                reliefAmount = 335m;
+            }
+            else if (year == 2008)
+            {
+                reliefAmount = 335m;
+            }
+            else if (year >= 2006)
+            {
+                reliefAmount = 200m;
+            }
+            else
+            {
+                reliefAmount = 0m;
+            }
+            return reliefAmount;
         }
 
         #region ICloneable Members

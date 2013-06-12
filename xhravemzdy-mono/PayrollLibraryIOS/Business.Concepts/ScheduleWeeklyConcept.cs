@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,14 @@ namespace PayrollLibrary.Business.Concepts
         public ScheduleWeeklyConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_SCHEDULE_WEEKLY, tagCode)
         {
+            InitValues(values);
         }
 
         public int HoursWeekly { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.HoursWeekly = (int)values["hours_weekly"];
+            this.HoursWeekly = GetIntOrZeroValue(values, "hours_weekly");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -30,16 +32,6 @@ namespace PayrollLibrary.Business.Concepts
             return newConcept;
         }
 
-        public override PayrollTag[] PendingCodes()
-        {
-            return new PayrollTag[0];
-        }
-
-        public override PayrollTag[] SummaryCodes()
-        {
-            return new PayrollTag[0];
-        }
-
         public override uint CalcCategory()
         {
             return PayrollConcept.CALC_CATEGORY_TIMES;
@@ -47,8 +39,16 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "", 0 } };
-            return new PayrollResult(TagCode, Code, this, resultValues);
+            int[] hoursWeek = ComputeResultValue(period, HoursWeekly);
+            var resultValues = new Dictionary<string, object>() { { "week_schedule", hoursWeek } };
+            return new ScheduleResult(TagCode, Code, this, resultValues);
+        }
+
+        private int[] ComputeResultValue(PayrollPeriod period, int hoursWeekly)
+        {
+            int hoursDaily = hoursWeekly / 5;
+            int[] hoursWeek = new int[] { hoursDaily, hoursDaily, hoursDaily, hoursDaily, hoursDaily, 0, 0 };
+            return hoursWeek;
         }
 
         #region ICloneable Members

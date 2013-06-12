@@ -29,5 +29,15 @@ namespace PayrollLibrary.Business.CoreItems
         {
             return (byte)(Code % 100);
         }
+
+        public int YearInt()
+        {
+            return (int)(Code / 100);
+        }
+
+        public int MonthInt()
+        {
+            return (int)(Code % 100);
+        }
     }
 }

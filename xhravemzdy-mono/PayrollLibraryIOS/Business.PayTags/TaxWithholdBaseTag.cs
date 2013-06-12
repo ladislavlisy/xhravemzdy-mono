@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TaxWithholdBaseTag : PayrollTag
     {
-        public TaxWithholdBaseTag() : base(PayTagGateway.REFTaxWithholdBase, PayConceptGateway.REFCON_TAX_WITHHOLD_BASE)
+        public TaxWithholdBaseTag() : base(PayTagGateway.REF_TAX_WITHHOLD_BASE, PayConceptGateway.REFCON_TAX_WITHHOLD_BASE)
         {
         }
     }

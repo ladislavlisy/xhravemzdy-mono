@@ -92,13 +92,13 @@ namespace PayrollLibrary.Business.Core
  
         public PayrollConcept ConceptFor(uint tagCode, string conceptName, IDictionary<string, object> values)
         {
-            string conceptClass = ClassnameFor(conceptName);
+            string conceptClass = ClassNameFor(conceptName);
             object[] conceptParams = new object[2] {tagCode, values};
             PayrollConcept conceptInstance = (PayrollConcept)Activator.CreateInstance(Type.GetType(conceptClass), conceptParams);
             return conceptInstance;
         }
 
-        public string ClassnameFor(string codeName)
+        public string ClassNameFor(string codeName)
         {
             Regex regexObj = new Regex("CONCEPT_(.*)", RegexOptions.Singleline);
             Match matchResult = regexObj.Match(codeName);

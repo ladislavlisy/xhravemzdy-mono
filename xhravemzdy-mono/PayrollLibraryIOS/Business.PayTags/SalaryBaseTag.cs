@@ -13,5 +13,15 @@ namespace PayrollLibrary.Business.PayTags
             : base(PayTagGateway.REF_SALARY_BASE, PayConceptGateway.REFCON_SALARY_MONTHLY)
         {
         }
+        public override bool InsuranceHealth() { return true; }
+
+        public override bool InsuranceSocial() { return true; }
+
+        public override bool TaxAdvance() { return true; }
+
+        public override bool IncomeGross() { return true; }
+
+        public override bool IncomeNetto() { return true; }
+
     }
 }

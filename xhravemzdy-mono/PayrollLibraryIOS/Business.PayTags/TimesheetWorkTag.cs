@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TimesheetWorkTag : PayrollTag
     {
-        public TimesheetWorkTag() : base(PayTagGateway.REFTimesheetWork, PayConceptGateway.REFCON_TIMESHEET_WORK)
+        public TimesheetWorkTag() : base(PayTagGateway.REF_TIMESHEET_WORK, PayConceptGateway.REFCON_TIMESHEET_WORK)
         {
         }
     }

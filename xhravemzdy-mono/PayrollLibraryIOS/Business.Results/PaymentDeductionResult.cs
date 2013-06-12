@@ -6,17 +6,26 @@ using PayrollLibrary.Business.CoreItems;
 
 namespace PayrollLibrary.Business.Results
 {
-    public class PaymentDeductionResult : PayrollResult
+    public class PaymentDeductionResult : PaymentResult
     {
-        public PaymentDeductionResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values) : base(code, conceptCode, conceptItem)
+        public PaymentDeductionResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values)
+            : base(code, conceptCode, conceptItem, values)
         {
+            InitValues(values);
+        }
+
+        public override decimal Deduction() { return payment; }
+
+        public override void InitValues(IDictionary<string, object> values)
+        {
+            base.InitValues(values);
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)
         {
         }
 
-        public string XmlValue()
+        public override string XmlValue()
         {
             return @"";
         }

@@ -8,8 +8,27 @@ namespace PayrollLibrary.Business.Results
 {
     public class ScheduleResult : PayrollResult
     {
-        public ScheduleResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values) : base(code, conceptCode, conceptItem)
+        public ScheduleResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values)
+            : base(code, conceptCode, conceptItem)
         {
+            InitValues(values);
+        }
+
+        public int[] WeekSchedule { get; private set; }
+
+        public override void InitValues(IDictionary<string, object> values)
+        {
+            this.WeekSchedule = GetArrayOfIntOrEmptyValue(values, "week_schedule");
+        }
+
+        public int Hours()
+        {
+            int weekHours = 0;
+            if (WeekSchedule != null)
+            {
+                weekHours = WeekSchedule.Aggregate(0, (agr, dh) => (agr + dh));
+            }
+            return weekHours;
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

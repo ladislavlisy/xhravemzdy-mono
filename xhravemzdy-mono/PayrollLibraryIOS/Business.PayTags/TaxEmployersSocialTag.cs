@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TaxEmployersSocialTag : PayrollTag
     {
-        public TaxEmployersSocialTag() : base(PayTagGateway.REFTaxEmployersSocial, PayConceptGateway.REFCON_TAX_EMPLOYERS_SOCIAL)
+        public TaxEmployersSocialTag() : base(PayTagGateway.REF_TAX_EMPLOYERS_SOCIAL, PayConceptGateway.REFCON_TAX_EMPLOYERS_SOCIAL)
         {
         }
     }

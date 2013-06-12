@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class ScheduleTermTag : PayrollTag
     {
-        public ScheduleTermTag() : base(PayTagGateway.REFScheduleTerm, PayConceptGateway.REFCON_SCHEDULE_TERM)
+        public ScheduleTermTag() : base(PayTagGateway.REF_SCHEDULE_TERM, PayConceptGateway.REFCON_SCHEDULE_TERM)
         {
         }
     }

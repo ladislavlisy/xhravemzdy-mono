@@ -8,8 +8,19 @@ namespace PayrollLibrary.Business.Results
 {
     public class TaxClaimResult : PayrollResult
     {
-        public TaxClaimResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values) : base(code, conceptCode, conceptItem)
+        public TaxClaimResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values)
+            : base(code, conceptCode, conceptItem)
         {
+            InitValues(values);
+        }
+
+        public decimal taxRelief;
+
+        public override decimal TaxRelief() { return taxRelief; }
+
+        public override void InitValues(IDictionary<string, object> values)
+        {
+            this.taxRelief = GetDecimalOrZeroValue(values, "tax_relief");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

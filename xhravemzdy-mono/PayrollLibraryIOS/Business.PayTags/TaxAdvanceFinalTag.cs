@@ -9,8 +9,11 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TaxAdvanceFinalTag : PayrollTag
     {
-        public TaxAdvanceFinalTag() : base(PayTagGateway.REFTaxAdvanceFinal, PayConceptGateway.REFCON_TAX_ADVANCE_FINAL)
+        public TaxAdvanceFinalTag() : base(PayTagGateway.REF_TAX_ADVANCE_FINAL, PayConceptGateway.REFCON_TAX_ADVANCE_FINAL)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }

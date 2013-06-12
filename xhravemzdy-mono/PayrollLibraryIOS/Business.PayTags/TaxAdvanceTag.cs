@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TaxAdvanceTag : PayrollTag
     {
-        public TaxAdvanceTag() : base(PayTagGateway.REFTaxAdvance, PayConceptGateway.REFCON_TAX_ADVANCE)
+        public TaxAdvanceTag() : base(PayTagGateway.REF_TAX_ADVANCE, PayConceptGateway.REFCON_TAX_ADVANCE)
         {
         }
     }

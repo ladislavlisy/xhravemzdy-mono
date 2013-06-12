@@ -9,8 +9,11 @@ namespace PayrollLibrary.Business.PayTags
 {
     class SavingsPensionsTag : PayrollTag
     {
-        public SavingsPensionsTag() : base(PayTagGateway.REFSavingsPensions, PayConceptGateway.REFCON_SAVINGS_PENSIONS)
+        public SavingsPensionsTag() : base(PayTagGateway.REF_SAVINGS_PENSIONS, PayConceptGateway.REFCON_SAVINGS_PENSIONS)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }
