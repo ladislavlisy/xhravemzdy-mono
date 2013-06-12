@@ -36,17 +36,17 @@ namespace xhravemzdy_test
 			var values = new Dictionary<string, object>() { { "hours_weekly", 40 } };
 			TagRefer payTag = PayProcess.AddTerm(tagCodeName, values);
 			var payTer = PayProcess.GetTerm(payTag);
-			Assert.AreEqual(((ScheduleWeeklyConcept)payTer[payTag]).HoursWeekly, 40);
+			Assert.AreEqual(40, ((ScheduleWeeklyConcept)payTer[payTag]).HoursWeekly);
 		}
 
 		[Test()]
 		public void test_base_salary()
 		{
 			CodeNameRefer tagCodeName = PayTagGateway.REF_SALARY_BASE;
-			var values = new Dictionary<string, object>() { { "amount_monthly", 15000 } };
+			var values = new Dictionary<string, object>() { { "amount_monthly", 15000m } };
 			TagRefer payTag = PayProcess.AddTerm(tagCodeName, values);
 			var payTer = PayProcess.GetTerm(payTag);
-			Assert.AreEqual(((SalaryMonthlyConcept)payTer[payTag]).AmountMonthly, 15000);
+			Assert.AreEqual(15000m, ((SalaryMonthlyConcept)payTer[payTag]).AmountMonthly);
 		}
 	}
 }
