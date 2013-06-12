@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,11 @@ namespace PayrollLibrary.Business.Concepts
         public TaxAdvanceFinalConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_TAX_ADVANCE_FINAL, tagCode)
         {
+            InitValues(values);
         }
-
-        public int VVV { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.VVV = values[""];
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)

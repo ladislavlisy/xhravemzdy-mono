@@ -8,8 +8,17 @@ namespace PayrollLibrary.Business.Results
 {
     public class AmountResult : PayrollResult
     {
-        public AmountResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values) : base(code, conceptCode, conceptItem)
+        public AmountResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values)
+            : base(code, conceptCode, conceptItem)
         {
+            InitValues(values);
+        }
+
+        public decimal Amount { get; private set; }
+
+        public override void InitValues(IDictionary<string, object> values)
+        {
+            this.Amount = GetDecimalOrZero(values["amount"]);
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

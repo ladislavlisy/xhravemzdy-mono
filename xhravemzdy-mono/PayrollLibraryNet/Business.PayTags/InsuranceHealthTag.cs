@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class InsuranceHealthTag : PayrollTag
     {
-        public InsuranceHealthTag() : base(PayTagGateway.REFInsuranceHealth, PayConceptGateway.REFCON_INSURANCE_HEALTH)
+        public InsuranceHealthTag() : base(PayTagGateway.REF_INSURANCE_HEALTH, PayConceptGateway.REFCON_INSURANCE_HEALTH)
         {
         }
     }

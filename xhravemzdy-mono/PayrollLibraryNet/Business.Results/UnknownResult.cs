@@ -11,6 +11,11 @@ namespace PayrollLibrary.Business.Results
         public UnknownResult(uint code, uint conceptCode, PayrollConcept conceptItem, IDictionary<string, object> values)
             : base(code, conceptCode, conceptItem)
         {
+            InitValues(values);
+        }
+
+        public override void InitValues(IDictionary<string, object> values)
+        {
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

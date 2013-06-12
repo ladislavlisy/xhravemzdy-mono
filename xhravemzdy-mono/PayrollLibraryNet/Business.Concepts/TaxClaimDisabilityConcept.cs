@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,18 @@ namespace PayrollLibrary.Business.Concepts
         public TaxClaimDisabilityConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_TAX_CLAIM_DISABILITY, tagCode)
         {
+            InitValues(values);
         }
 
-        public int VVV { get; private set; }
+        public uint ReliefCode1 { get; private set; }
+        public uint ReliefCode2 { get; private set; }
+        public uint ReliefCode3 { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.VVV = values[""];
+            this.ReliefCode1 = GetUIntOrZero(values["relief_code_1"]);
+            this.ReliefCode2 = GetUIntOrZero(values["relief_code_2"]);
+            this.ReliefCode3 = GetUIntOrZero(values["relief_code_3"]);
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -38,11 +44,6 @@ namespace PayrollLibrary.Business.Concepts
         public override PayrollTag[] SummaryCodes()
         {
             return new PayrollTag[0];
-        }
-
-        public override uint CalcCategory()
-        {
-            return PayrollConcept.CALC_CATEGORY_;
         }
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)

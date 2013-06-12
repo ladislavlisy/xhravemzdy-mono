@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,17 @@ namespace PayrollLibrary.Business.Concepts
         public ScheduleTermConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_SCHEDULE_TERM, tagCode)
         {
+            InitValues(values);
         }
 
-        public int VVV { get; private set; }
+        public DateTime DateFrom { get; private set; }
+
+        public DateTime DateEnd { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.VVV = values[""];
+            this.DateFrom = (DateTime)values["date_from"];
+            this.DateEnd  = (DateTime)values["date_end"];
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -30,25 +35,39 @@ namespace PayrollLibrary.Business.Concepts
             return newConcept;
         }
 
-        public override PayrollTag[] PendingCodes()
-        {
-            return new PayrollTag[0];
-        }
-
-        public override PayrollTag[] SummaryCodes()
-        {
-            return new PayrollTag[0];
-        }
-
-        public override uint CalcCategory()
-        {
-            return PayrollConcept.CALC_CATEGORY_;
-        }
-
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "", 0 } };
-            return new PayrollResult(TagCode, Code, this, resultValues);
+            uint dayTermFrom = TERM_BEG_FINISHED;
+            uint dayTermEnd = TERM_END_FINISHED;
+
+            DateTime periodDateBeg = new DateTime((int)period.Year(), (int)period.Month(), 1);
+            DateTime periodDateEnd = new DateTime((int)period.Year(), (int)period.Month(), 
+                DateTime.DaysInMonth((int)period.Year(), (int)period.Month()));
+
+            if (this.DateFrom != null)
+            {
+                dayTermFrom = (uint)DateFrom.Day;
+            }
+
+            if (this.DateEnd != null)
+            {
+                dayTermEnd = (uint)DateEnd.Day;
+            }
+
+            if (this.DateFrom == null || this.DateFrom < periodDateBeg)
+            {
+                dayTermFrom = 1;
+            }
+
+            if (this.DateEnd == null || this.DateEnd > periodDateEnd)
+            {
+                dayTermFrom = (uint)DateTime.DaysInMonth((int)period.Year(), (int)period.Month());
+            }
+
+            var resultValues = new Dictionary<string, object>() {
+                { "day_ord_from", dayTermFrom }, { "day_ord_end", dayTermEnd } 
+            };
+            return new TermEffectResult(TagCode, Code, this, resultValues);
         }
 
         #region ICloneable Members

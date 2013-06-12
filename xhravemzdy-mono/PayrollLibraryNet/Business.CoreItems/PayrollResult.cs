@@ -74,5 +74,38 @@ namespace PayrollLibrary.Business.CoreItems
         {
             return new Dictionary<string, string>() { { "title", tagName.Title }, { "value", ExportValueResult() } };
         }
+
+        virtual public decimal Payment()
+        {
+            return decimal.Zero;
+        }
+
+        #region get values from hash
+
+        protected int GetIntOrZero(object obj)
+        {
+            if (obj == null || !(obj is int)) return 0;
+            return (int)obj;
+        }
+
+        protected uint GetUIntOrZero(object obj)
+        {
+            if (obj == null || !(obj is uint)) return 0;
+            return (uint)obj;
+        }
+
+        protected decimal GetDecimalOrZero(object obj)
+        {
+            if (obj == null || !(obj is decimal)) return decimal.Zero;
+            return (decimal)obj;
+        }
+
+        protected int[] GetArrayOfIntOrEmpty(object obj)
+        {
+            if (obj == null || !(obj is int[])) return new int[0];
+            return (int[])obj;
+        }
+
+        #endregion
     }
 }

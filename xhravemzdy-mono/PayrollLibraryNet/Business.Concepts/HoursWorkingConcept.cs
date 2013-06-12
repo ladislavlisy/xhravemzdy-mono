@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,10 +14,14 @@ namespace PayrollLibrary.Business.Concepts
         public HoursWorkingConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_HOURS_WORKING, tagCode)
         {
+            InitValues(values);
         }
+
+        public int Hours { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
+            this.Hours = GetIntOrZero(values["hours"]);
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -29,11 +34,9 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollTag[] PendingCodes()
         {
-            return new PayrollTag[0];
-        }
-        public override PayrollTag[] SummaryCodes()
-        {
-            return new PayrollTag[0];
+            return new PayrollTag[] { 
+                new TimesheetWorkTag() 
+            };
         }
 
         public override uint CalcCategory()
@@ -43,8 +46,8 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "", 0 } };
-            return new PayrollResult(TagCode, Code, this, resultValues);
+            var resultValues = new Dictionary<string, object>() { { "hours", Hours } };
+            return new TermHoursResult(TagCode, Code, this, resultValues);
         }
 
         #region ICloneable Members

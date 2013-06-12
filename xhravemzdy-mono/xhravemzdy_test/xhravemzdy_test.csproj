@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="ProcessTermTest.cs" />
     <Compile Include="ProcessSetupTest.cs" />
+    <Compile Include="PayrollRoundingTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

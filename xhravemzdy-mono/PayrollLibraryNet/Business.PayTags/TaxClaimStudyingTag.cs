@@ -9,7 +9,7 @@ namespace PayrollLibrary.Business.PayTags
 {
     class TaxClaimStudyingTag : PayrollTag
     {
-        public TaxClaimStudyingTag() : base(PayTagGateway.REFTaxClaimStudying, PayConceptGateway.REFCON_TAX_CLAIM_STUDYING)
+        public TaxClaimStudyingTag() : base(PayTagGateway.REF_TAX_CLAIM_STUDYING, PayConceptGateway.REFCON_TAX_CLAIM_STUDYING)
         {
         }
     }

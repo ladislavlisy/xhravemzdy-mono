@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,14 @@ namespace PayrollLibrary.Business.Concepts
         public TaxEmployersHealthConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_TAX_EMPLOYERS_HEALTH, tagCode)
         {
+            InitValues(values);
         }
 
-        public int VVV { get; private set; }
+        public uint InterestCode { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.VVV = values[""];
+            this.InterestCode = GetUIntOrZero(values["interest_code"]);
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)

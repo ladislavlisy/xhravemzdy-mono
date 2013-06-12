@@ -5,6 +5,7 @@ using System.Text;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
+using PayrollLibrary.Business.Results;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -13,13 +14,14 @@ namespace PayrollLibrary.Business.Concepts
         public ScheduleWeeklyConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_SCHEDULE_WEEKLY, tagCode)
         {
+            InitValues(values);
         }
 
         public int HoursWeekly { get; private set; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.HoursWeekly = (int)values["hours_weekly"];
+            this.HoursWeekly = GetIntOrZero(values["hours_weekly"]);
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
