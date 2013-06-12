@@ -12,5 +12,8 @@ namespace PayrollLibrary.Business.PayTags
         public TaxBonusChildTag() : base(PayTagGateway.REF_TAX_BONUS_CHILD, PayConceptGateway.REFCON_TAX_BONUS_CHILD)
         {
         }
+
+        public override bool IncomeNetto() { return true; }
+
     }
 }

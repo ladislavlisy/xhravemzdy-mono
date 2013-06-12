@@ -68,8 +68,9 @@ namespace PayrollLibrary.Business.Concepts
             return hoursCalendar;
         }
 
-        private int HoursFromCalendar(uint dayOrdFrom, uint dayOrgEnd, int dayOrdinal, int workHours)
+        private int HoursFromCalendar(uint dayOrdFrom, uint dayOrgEnd, int dayIndex, int workHours)
         {
+            int dayOrdinal = dayIndex + 1;
             int hoursInDay = workHours;
             if (dayOrdFrom > dayOrdinal)
             {

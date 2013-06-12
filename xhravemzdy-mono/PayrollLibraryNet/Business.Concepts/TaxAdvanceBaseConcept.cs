@@ -55,7 +55,7 @@ namespace PayrollLibrary.Business.Concepts
 
             decimal taxableHealth = healthEmployer.Payment();
             decimal taxableSocial = socialEmployer.Payment();
-            decimal taxableBase = resultIncome.IncomeBase;
+            decimal taxableBase = resultIncome.IncomeBase();
 
             bool isTaxInterest = resultIncome.Interest();
             bool isTaxDeclared = resultIncome.Declared();

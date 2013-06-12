@@ -12,5 +12,8 @@ namespace PayrollLibrary.Business.PayTags
         public TaxWithholdTag() : base(PayTagGateway.REF_TAX_WITHHOLD, PayConceptGateway.REFCON_TAX_WITHHOLD)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }

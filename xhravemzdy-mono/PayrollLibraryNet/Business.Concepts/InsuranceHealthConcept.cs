@@ -68,8 +68,8 @@ namespace PayrollLibrary.Business.Concepts
             else
             {
                 IncomeBaseResult resultIncome = (IncomeBaseResult)GetResultBy(results, TAG_AMOUNT_BASE);
-                employerIncome = Math.Max(0m, resultIncome.EmployerBase);
-                employeeIncome = Math.Max(0m, resultIncome.EmployeeBase);
+                employerIncome = Math.Max(0m, resultIncome.EmployerBase());
+                employeeIncome = Math.Max(0m, resultIncome.EmployeeBase());
             }
             decimal contPaymentValue = InsuranceContribution(period, employerIncome, employeeIncome);
 

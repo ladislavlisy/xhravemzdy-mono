@@ -57,8 +57,8 @@ namespace PayrollLibrary.Business.Concepts
         {
             IncomeBaseResult insIncomeResult = (IncomeBaseResult)GetResultBy(results, TAG_AMOUNT_BASE);
 
-            decimal employerBase = insIncomeResult.EmployerBase;
-            decimal employeeBase = insIncomeResult.EmployeeBase;
+            decimal employerBase = insIncomeResult.EmployerBase();
+            decimal employeeBase = insIncomeResult.EmployeeBase();
 
             decimal paymentValue = ComputeResultValue(period, employerBase, employeeBase);
 

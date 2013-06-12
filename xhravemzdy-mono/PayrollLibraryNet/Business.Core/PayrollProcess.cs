@@ -73,7 +73,10 @@ namespace PayrollLibrary.Business.Core
         {
             uint mergeCodeOrder = GetTagOrderFrom(termHash, periodBase, termRefer.Code);
             KeyValuePair<TagRefer, PayrollConcept> termToMerge = NewTermPairWithOrder(periodBase, termRefer, mergeCodeOrder, termValues);
-            termHash.Add(termToMerge.Key, termToMerge.Value);
+            if (!termHash.ContainsKey(termToMerge.Key))
+            {
+                termHash.Add(termToMerge.Key, termToMerge.Value);
+            }
             ////term_hash.merge!(term_to_merge) do |tag, term_concept, _|
             ////  term_concept
             ////end
@@ -112,9 +115,10 @@ namespace PayrollLibrary.Business.Core
 
             var sortedCalculation = calculationSteps.OrderBy( x => (x.Value) );
 
-            //this.Results = sortedCalculation.Aggregate(new Dictionary<TagRefer, PayrollResult>(), 
-            //    (agr, x) => (agr.Add(x.Key, x.Value.Evaluate(Period, Tags, agr))));
-
+            this.Results = sortedCalculation.Aggregate(new Dictionary<TagRefer, PayrollResult>(), 
+                (agr, x) => (agr.Union(new Dictionary<TagRefer, PayrollResult>() { 
+                    { x.Key, x.Value.Evaluate(Period, Tags, agr) } 
+                    }).ToDictionary(key => key.Key, value => value.Value)));
             return GetResult(payTag);
         }
 

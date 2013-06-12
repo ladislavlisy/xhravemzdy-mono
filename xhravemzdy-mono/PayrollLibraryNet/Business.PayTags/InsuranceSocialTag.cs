@@ -12,5 +12,8 @@ namespace PayrollLibrary.Business.PayTags
         public InsuranceSocialTag() : base(PayTagGateway.REF_INSURANCE_SOCIAL, PayConceptGateway.REFCON_INSURANCE_SOCIAL)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }

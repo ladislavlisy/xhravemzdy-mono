@@ -18,7 +18,7 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.Amount = GetDecimalOrZero(values["amount"]);
+            this.Amount = GetDecimalOrZeroValue(values, "amount");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

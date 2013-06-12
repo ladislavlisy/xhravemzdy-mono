@@ -60,7 +60,7 @@ namespace PayrollLibrary.Business.Concepts
         {
             bool pensionSaving = false;
 
-            IncomeBaseResult resultPension = (IncomeBaseResult)GetResultBy(results, TAG_PENSION_CONT);
+            PaymentResult resultPension = (PaymentResult)GetResultBy(results, TAG_PENSION_CONT);
 
             decimal paymentIncome = 0m;
             
@@ -73,7 +73,7 @@ namespace PayrollLibrary.Business.Concepts
                 IncomeBaseResult resultIncome = (IncomeBaseResult)GetResultBy(results, TAG_AMOUNT_BASE);
 
                 pensionSaving = resultPension.Interest();
-                paymentIncome = Math.Max(0m, resultIncome.EmployeeBase);
+                paymentIncome = Math.Max(0m, resultIncome.EmployeeBase());
             }
             decimal contPaymentValue = InsuranceContribution(period, paymentIncome, pensionSaving);
 

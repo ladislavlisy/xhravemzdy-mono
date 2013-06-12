@@ -11,6 +11,8 @@ namespace PayrollLibrary.Business.Concepts
 {
     class HoursWorkingConcept : PayrollConcept
     {
+        static readonly uint TAG_TIMESHEET_WORK = PayTagGateway.REF_TIMESHEET_WORK.Code;
+
         public HoursWorkingConcept(uint tagCode, IDictionary<string, object> values)
             : base(PayConceptGateway.REFCON_HOURS_WORKING, tagCode)
         {
@@ -26,7 +28,7 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
         {
-            PayrollConcept newConcept = (SalaryMonthlyConcept)this.Clone();
+            PayrollConcept newConcept = (HoursWorkingConcept)this.Clone();
             newConcept.InitCode(code);
             newConcept.InitValues(values);
             return newConcept;
@@ -46,7 +48,11 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "hours", Hours } };
+            TimesheetResult resultTimesheet = (TimesheetResult)GetResultBy(results, TAG_TIMESHEET_WORK);
+
+            int resultHours = resultTimesheet.Hours() + Hours;
+
+            var resultValues = new Dictionary<string, object>() { { "hours", resultHours } };
             return new TermHoursResult(TagCode, Code, this, resultValues);
         }
 

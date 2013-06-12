@@ -22,6 +22,7 @@ namespace PayrollLibrary.Business.CoreItems
             : base(codeRefer.Code, codeRefer.Name)
         {
             this.TagCode = tagCode;
+            this.TagPendingCodes = null;
         }
 
         public abstract void InitValues(IDictionary<string, object> values);
@@ -254,7 +255,7 @@ namespace PayrollLibrary.Business.CoreItems
             object obj = null;
             bool value = values.TryGetValue(key, out obj);
 
-            if (!value || obj == null || !(obj is decimal)) return null;
+            if (!value || obj == null || !(obj is DateTime)) return null;
             return (DateTime)obj;
         }
 

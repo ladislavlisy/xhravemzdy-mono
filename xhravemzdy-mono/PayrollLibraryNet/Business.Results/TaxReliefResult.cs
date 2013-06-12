@@ -20,7 +20,7 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.taxRelief = GetDecimalOrZero(values["tax_relief"]);
+            this.taxRelief = GetDecimalOrZeroValue(values, "tax_relief");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

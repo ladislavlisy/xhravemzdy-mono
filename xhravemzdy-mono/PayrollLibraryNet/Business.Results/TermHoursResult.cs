@@ -18,7 +18,7 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.Hours = GetIntOrZero(values["hours"]);
+            this.Hours = GetIntOrZeroValue(values, "hours");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

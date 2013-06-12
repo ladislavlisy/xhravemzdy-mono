@@ -12,5 +12,8 @@ namespace PayrollLibrary.Business.PayTags
         public TaxAdvanceFinalTag() : base(PayTagGateway.REF_TAX_ADVANCE_FINAL, PayConceptGateway.REFCON_TAX_ADVANCE_FINAL)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }

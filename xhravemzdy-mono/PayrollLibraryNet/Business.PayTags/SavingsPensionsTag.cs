@@ -12,5 +12,8 @@ namespace PayrollLibrary.Business.PayTags
         public SavingsPensionsTag() : base(PayTagGateway.REF_SAVINGS_PENSIONS, PayConceptGateway.REFCON_SAVINGS_PENSIONS)
         {
         }
+
+        public override bool DeductionNetto() { return true; }
+
     }
 }

@@ -23,17 +23,17 @@ namespace PayrollLibrary.Business.CoreItems
 
         public string ConceptName() { return Concept.Name; }
 
-        public bool InsuranceHealth() { return false; }
+        public virtual bool InsuranceHealth() { return false; }
 
-        public bool InsuranceSocial() { return false; }
+        public virtual bool InsuranceSocial() { return false; }
 
-        public bool TaxAdvance() { return false; }
+        public virtual bool TaxAdvance() { return false; }
 
-        public bool IncomeGross() { return false; }
+        public virtual bool IncomeGross() { return false; }
 
-        public bool IncomeNetto() { return false; }
+        public virtual bool IncomeNetto() { return false; }
 
-        public bool DeductionNetto() { return false; }
+        public virtual bool DeductionNetto() { return false; }
 
     }
 }

@@ -52,16 +52,16 @@ namespace PayrollLibrary.Business.Concepts
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
             PaymentResult advanceBaseResult = (PaymentResult)GetResultBy(results, TAX_ADVANCE);
-            TaxReliefResult reliefClaimPayerResult = (TaxReliefResult)GetResultBy(results, TAX_CLAIM_PAYER);
-            TaxReliefResult reliefClaimDisabResult = (TaxReliefResult)GetResultBy(results, TAX_CLAIM_DISAB);
-            TaxReliefResult reliefClaimStudyResult = (TaxReliefResult)GetResultBy(results, TAX_CLAIM_STUDY);
+            TaxClaimResult reliefClaimPayerResult = (TaxClaimResult)GetResultBy(results, TAX_CLAIM_PAYER);
+            TaxClaimResult reliefClaimDisabResult = (TaxClaimResult)GetResultBy(results, TAX_CLAIM_DISAB);
+            TaxClaimResult reliefClaimStudyResult = (TaxClaimResult)GetResultBy(results, TAX_CLAIM_STUDY);
 
             decimal advanceBaseValue = advanceBaseResult.Payment();
             decimal reliefPayerValue = reliefClaimPayerResult.TaxRelief();
             decimal reliefDisabValue = reliefClaimDisabResult.TaxRelief();
             decimal reliefStudyValue = reliefClaimStudyResult.TaxRelief();
 
-            decimal taxReliefValue = reliefPayerValue + reliefDisabValue + reliefStudyValue;
+            decimal taxReliefValue = 0m;
             decimal taxClaimsValue = reliefPayerValue + reliefDisabValue + reliefStudyValue;
 
             decimal resultValue = ComputeResultValue(advanceBaseValue,

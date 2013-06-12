@@ -14,11 +14,17 @@ namespace PayrollLibrary.Business.Results
             InitValues(values);
         }
 
-        public decimal IncomeBase   { get; private set; }
+        public decimal incomeBase;
 
-        public decimal EmployerBase { get; private set; }
+        public override decimal IncomeBase() { return incomeBase; }
 
-        public decimal EmployeeBase { get; private set; }
+        public decimal employerBase;
+
+        public override decimal EmployerBase() { return employerBase; }
+        
+        public decimal employeeBase;
+
+        public override decimal EmployeeBase() { return employeeBase; }
 
         public uint InterestCode { get; private set; }
 
@@ -28,12 +34,12 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.IncomeBase = GetDecimalOrZero(values["income_base"]);
-            this.EmployerBase = GetDecimalOrZero(values["employer_base"]);
-            this.EmployeeBase = GetDecimalOrZero(values["employee_base"]);
-            this.InterestCode = GetUIntOrZero(values["interest_code"]);
-            this.MinimumAsses = GetUIntOrZero(values["minimum_asses"]);
-            this.DeclareCode  = GetUIntOrZero(values["declare_code"]);
+            this.incomeBase = GetDecimalOrZeroValue(values, "income_base");
+            this.employerBase = GetDecimalOrZeroValue(values, "employer_base");
+            this.employeeBase = GetDecimalOrZeroValue(values, "employee_base");
+            this.InterestCode = GetUIntOrZeroValue(values, "interest_code");
+            this.MinimumAsses = GetUIntOrZeroValue(values, "minimum_asses");
+            this.DeclareCode  = GetUIntOrZeroValue(values, "declare_code");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

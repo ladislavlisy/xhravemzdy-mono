@@ -20,8 +20,8 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.DayOrdFrom = GetUIntOrZero(values["day_ord_from"]);
-            this.DayOrdEnd  = GetUIntOrZero(values["day_ord_end"]);
+            this.DayOrdFrom = GetUIntOrZeroValue(values, "day_ord_from");
+            this.DayOrdEnd  = GetUIntOrZeroValue(values, "day_ord_end");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

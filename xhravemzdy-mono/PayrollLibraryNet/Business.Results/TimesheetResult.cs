@@ -18,7 +18,7 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.MonthSchedule = GetArrayOfIntOrEmpty(values["month_schedule"]);
+            this.MonthSchedule = GetArrayOfIntOrEmptyValue(values, "month_schedule");
         }
 
         public int Hours()

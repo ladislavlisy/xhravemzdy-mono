@@ -85,7 +85,7 @@ namespace PayrollLibrary.Business.Concepts
         {
             DateTime calendarDay = new DateTime(calendarBeg.Year, calendarBeg.Month, dayOrdinal);
             int dayOfWeek = (dayOrdinal % 7) + (calendarBegCwd - 1);
-            return weekHours[dayOfWeek];
+            return weekHours[dayOfWeek-1];
         }
 
         #region ICloneable Members

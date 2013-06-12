@@ -84,38 +84,88 @@ namespace PayrollLibrary.Business.CoreItems
             return decimal.Zero;
         }
 
+        virtual public decimal Deduction()
+        {
+            return decimal.Zero;
+        }
+
         virtual public decimal TaxRelief()
         {
             return decimal.Zero;
         }
 
-        #region get values from hash
-
-        protected int GetIntOrZero(object obj)
+        virtual public decimal IncomeBase()
         {
-            if (obj == null || !(obj is int)) return 0;
+            return decimal.Zero;
+        }
+
+        virtual public decimal EmployeeBase()
+        {
+            return decimal.Zero;
+        }
+
+        virtual public decimal EmployerBase()
+        {
+            return decimal.Zero;
+        }
+
+        virtual public decimal AfterReliefA()
+        {
+            return decimal.Zero;
+        }
+
+        virtual public decimal AfterReliefC()
+        {
+            return decimal.Zero;
+        }
+
+        #region get values from hash 
+
+        protected int GetIntOrZeroValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is int)) return 0;
             return (int)obj;
         }
 
-        protected uint GetUIntOrZero(object obj)
+        protected uint GetUIntOrZeroValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is uint)) return 0;
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is uint)) return 0;
             return (uint)obj;
         }
 
-        protected decimal GetDecimalOrZero(object obj)
+        protected decimal GetDecimalOrZeroValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is decimal)) return decimal.Zero;
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is decimal)) return decimal.Zero;
             return (decimal)obj;
         }
 
-        protected int[] GetArrayOfIntOrEmpty(object obj)
+        protected DateTime? GetDateOrNullValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is int[])) return new int[0];
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is DateTime)) return null;
+            return (DateTime)obj;
+        }
+
+        protected int[] GetArrayOfIntOrEmptyValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+            
+            if (!value || obj == null || !(obj is int[])) return new int[0];
             return (int[])obj;
         }
 
         #endregion
-
     }
 }

@@ -18,15 +18,19 @@ namespace PayrollLibrary.Business.Results
 
         public override decimal Payment() { return payment; }
 
-        public decimal AfterReliefA { get; private set; }
+        public decimal afterReliefA;
 
-        public decimal AfterReliefC { get; private set; }
+        public override decimal AfterReliefA() { return afterReliefA; }
+
+        public decimal afterReliefC;
+
+        public override decimal AfterReliefC() { return afterReliefC; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.payment = GetDecimalOrZero(values["payment"]);
-            this.AfterReliefA = GetDecimalOrZero(values["after_reliefA"]);
-            this.AfterReliefC = GetDecimalOrZero(values["after_reliefC"]);
+            this.payment = GetDecimalOrZeroValue(values, "payment");
+            this.afterReliefA = GetDecimalOrZeroValue(values, "after_reliefA");
+            this.afterReliefC = GetDecimalOrZeroValue(values, "after_reliefC");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

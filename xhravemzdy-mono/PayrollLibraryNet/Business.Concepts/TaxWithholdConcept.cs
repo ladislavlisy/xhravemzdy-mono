@@ -56,8 +56,8 @@ namespace PayrollLibrary.Business.Concepts
             IncomeBaseResult resultIncome = (IncomeBaseResult)GetResultBy(results, TAG_INCOME_BASE);
             IncomeBaseResult resultWithhold = (IncomeBaseResult)GetResultBy(results, TAG_WITHHOLD_BASE);
 
-            decimal taxableIncome = resultIncome.IncomeBase;
-            decimal taxablePartial = resultWithhold.IncomeBase;
+            decimal taxableIncome = resultIncome.IncomeBase();
+            decimal taxablePartial = resultWithhold.IncomeBase();
 
             decimal resultPayment = ComputeResultValue(period, taxableIncome, taxablePartial);
 

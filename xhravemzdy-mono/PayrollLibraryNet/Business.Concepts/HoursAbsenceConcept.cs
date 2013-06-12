@@ -26,7 +26,7 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
         {
-            PayrollConcept newConcept = (SalaryMonthlyConcept)this.Clone();
+            PayrollConcept newConcept = (HoursAbsenceConcept)this.Clone();
             newConcept.InitCode(code);
             newConcept.InitValues(values);
             return newConcept;
