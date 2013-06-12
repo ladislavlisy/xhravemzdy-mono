@@ -21,7 +21,7 @@ namespace PayrollLibrary.Business.Concepts
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.Hours = GetIntOrZero(values["hours"]);
+            this.Hours = GetIntOrZeroValue(values, "hours");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)

@@ -222,22 +222,40 @@ namespace PayrollLibrary.Business.CoreItems
 
         #region get values from hash 
 
-        protected int GetIntOrZero(object obj)
+        protected int GetIntOrZeroValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is int)) return 0;
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is int)) return 0;
             return (int)obj;
         }
 
-        protected uint GetUIntOrZero(object obj)
+        protected uint GetUIntOrZeroValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is uint)) return 0;
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is uint)) return 0;
             return (uint)obj;
         }
 
-        protected decimal GetDecimalOrZero(object obj)
+        protected decimal GetDecimalOrZeroValue(IDictionary<string, object> values, string key)
         {
-            if (obj == null || !(obj is decimal)) return decimal.Zero;
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is decimal)) return decimal.Zero;
             return (decimal)obj;
+        }
+
+        protected DateTime? GetDateOrNullValue(IDictionary<string, object> values, string key)
+        {
+            object obj = null;
+            bool value = values.TryGetValue(key, out obj);
+
+            if (!value || obj == null || !(obj is decimal)) return null;
+            return (DateTime)obj;
         }
 
         #endregion

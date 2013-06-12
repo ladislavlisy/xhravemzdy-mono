@@ -25,8 +25,8 @@ namespace PayrollLibrary.Business.Concepts
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.InterestCode = GetUIntOrZero(values["interest_code"]);
-            this.MinimumAsses = GetUIntOrZero(values["minimum_asses"]);
+            this.InterestCode = GetUIntOrZeroValue(values, "interest_code");
+            this.MinimumAsses = GetUIntOrZeroValue(values, "minimum_asses");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -77,7 +77,7 @@ namespace PayrollLibrary.Business.Concepts
             return new PaymentDeductionResult(TagCode, Code, this, resultValues);
         }
 
-        private decimal InsuranceContribution(PayrollPeriod period, decimal employerIncome, decimal employeeIncome)
+        public decimal InsuranceContribution(PayrollPeriod period, decimal employerIncome, decimal employeeIncome)
         {
             decimal employerBase = Math.Max(employerIncome, employeeIncome);
             decimal employeeSelf = Math.Max(0m, decimal.Subtract(employeeIncome, employerIncome));

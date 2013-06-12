@@ -14,7 +14,9 @@ namespace PayrollLibrary.Business.Results
             InitValues(values);
         }
 
-        public decimal Payment { get; private set; }
+        public decimal payment;
+
+        public override decimal Payment() { return payment; }
 
         public decimal AfterReliefA { get; private set; }
 
@@ -22,7 +24,7 @@ namespace PayrollLibrary.Business.Results
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.Payment = GetDecimalOrZero(values["payment"]);
+            this.payment = GetDecimalOrZero(values["payment"]);
             this.AfterReliefA = GetDecimalOrZero(values["after_reliefA"]);
             this.AfterReliefC = GetDecimalOrZero(values["after_reliefC"]);
         }

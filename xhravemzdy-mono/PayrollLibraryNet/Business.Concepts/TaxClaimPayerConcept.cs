@@ -21,7 +21,7 @@ namespace PayrollLibrary.Business.Concepts
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.ReliefCode = GetUIntOrZero(values["relief_code"]);
+            this.ReliefCode = GetUIntOrZeroValue(values, "relief_code");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
@@ -44,8 +44,52 @@ namespace PayrollLibrary.Business.Concepts
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)
         {
-            var resultValues = new Dictionary<string, object>() { { "", 0 } };
-            return new PayrollResult(TagCode, Code, this, resultValues);
+            decimal reliefValue = ComputeResultValue(period.Year(), ReliefCode);
+
+            var resultValues = new Dictionary<string, object>() { { "tax_relief", reliefValue } };
+            return new TaxClaimResult(TagCode, Code, this, resultValues);
+        }
+
+        private decimal ComputeResultValue(uint year, uint reliefCode)
+        {
+            decimal reliefAmount = 0;
+
+            if (reliefCode == 0)
+            {
+                return 0m;
+            }
+            reliefAmount = PayerRelief(year);
+            return reliefAmount;
+        }
+
+        private decimal PayerRelief(uint year)
+        {
+            decimal reliefAmount = 0;
+            if (year >= 2012)
+            {
+                reliefAmount = 2070m;
+            }
+            else if (year == 2011)
+            {
+                reliefAmount = 1970m;
+            }
+            else if (year >= 2009)
+            {
+                reliefAmount = 2070m;
+            }
+            else if (year == 2008)
+            {
+                reliefAmount = 2070m;
+            }
+            else if (year >= 2006)
+            {
+                reliefAmount = 600m;
+            }
+            else
+            {
+                reliefAmount = 0m;
+            }
+            return reliefAmount;
         }
 
         #region ICloneable Members

@@ -13,7 +13,11 @@ namespace PayrollLibrary.Business.CoreItems
             this.ConceptCode = conceptCode;
             this.Concept = conceptItem;
         }
-        
+
+        public virtual void InitValues(IDictionary<string, object> values)
+        {
+        }
+
         public uint TagCode { get; private set; }
 
         public uint ConceptCode { get; private set; }
@@ -80,6 +84,11 @@ namespace PayrollLibrary.Business.CoreItems
             return decimal.Zero;
         }
 
+        virtual public decimal TaxRelief()
+        {
+            return decimal.Zero;
+        }
+
         #region get values from hash
 
         protected int GetIntOrZero(object obj)
@@ -107,5 +116,6 @@ namespace PayrollLibrary.Business.CoreItems
         }
 
         #endregion
+
     }
 }

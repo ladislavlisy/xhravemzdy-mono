@@ -25,7 +25,7 @@ namespace PayrollLibrary.Business.Concepts
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.AmountMonthly = GetDecimalOrZero(values["amount_monthly"]);
+            this.AmountMonthly = GetDecimalOrZeroValue(values, "amount_monthly");
         }
 
         public override PayrollConcept CloneWithValue(uint code, IDictionary<string, object> values)
