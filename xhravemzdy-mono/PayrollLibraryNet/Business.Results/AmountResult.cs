@@ -14,11 +14,13 @@ namespace PayrollLibrary.Business.Results
             InitValues(values);
         }
 
-        public decimal Amount { get; private set; }
+        public decimal amount;
+
+        public override decimal Amount() { return amount; }
 
         public override void InitValues(IDictionary<string, object> values)
         {
-            this.Amount = GetDecimalOrZeroValue(values, "amount");
+            this.amount = GetDecimalOrZeroValue(values, "amount");
         }
 
         public override void ExportXmlResult(/*xmlBuilder*/)

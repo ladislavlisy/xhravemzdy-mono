@@ -7,9 +7,9 @@ using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Concepts;
 using PayrollLibrary.Business.PayTags;
 
-namespace xhravemzdy_test
+namespace PayrollLibrary.PayrollTest
 {
-	[TestFixture()]
+	[TestFixture]
     public class PayGatewayTest
     {
         PayTagGateway PayTags { get; set; }
@@ -20,6 +20,11 @@ namespace xhravemzdy_test
 
         public PayGatewayTest()
         {
+        }
+
+        [SetUp]
+        public void Init()
+        {
             PayTags = new PayTagGateway();
 
             PayConcepts = new PayConceptGateway();
@@ -28,14 +33,19 @@ namespace xhravemzdy_test
 
         }
 
-        [Test()]
+        [TearDown]
+        public void Cleanup()
+        { 
+        }
+
+        [Test]
         public void test_salary_CONCEPT_SALARY_MONTHLY_class_name()
         {
             string className = PayConcepts.ClassNameFor(SalaryConceptTag.ConceptName());
 			Assert.AreEqual("PayrollLibrary.Business.Concepts.SalaryMonthlyConcept", className);
         }
 
-        [Test()]
+        [Test]
         public void test_salary_CONCEPT_SALARY_MONTHLY_code()
         {
             var values = new Dictionary<string, object>() { { "amount_monthly", 0 } };
@@ -45,14 +55,14 @@ namespace xhravemzdy_test
 			Assert.AreEqual((uint)TagCode.TAG_SALARY_BASE, conceptItem.TagCode);
         }
 
-		[Test()]
+		[Test]
         public void test_salary_TAG_SALARY_BASE_class_name()
         {
             string className = PayTags.ClassNameFor(SalaryConceptTag.Name);
 			Assert.AreEqual("PayrollLibrary.Business.PayTags.SalaryBaseTag", className);
         }
 
-		[Test()]
+		[Test]
         public void test_salary_TAG_SALARY_BASE_code()
         {
             PayrollTag tagItem = PayTags.TagFor(SalaryConceptTag.Name);

@@ -119,6 +119,11 @@ namespace PayrollLibrary.Business.CoreItems
             return decimal.Zero;
         }
 
+        virtual public decimal Amount()
+        {
+            return decimal.Zero;
+        }
+
         #region get values from hash 
 
         protected int GetIntOrZeroValue(IDictionary<string, object> values, string key)

@@ -6,7 +6,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Concepts;
 
-namespace xhravemzdy_test
+namespace PayrollLibrary.PayrollTest
 {
 	[TestFixture()]
 	public class ProcessTermTest
@@ -20,6 +20,11 @@ namespace xhravemzdy_test
 		PayConceptGateway PayConcepts { get; set; }
 
 		public ProcessTermTest()
+        {
+        }
+
+        [SetUp]
+        public void Init()
 		{
 			PayPeriod = new PayrollPeriod(2013, 1);
 
@@ -29,7 +34,13 @@ namespace xhravemzdy_test
 
 			PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
 		}
-		[Test()]
+
+        [TearDown]
+        public void Cleanup()
+        {
+        }
+
+        [Test]
 		public void test_working_schedule()
 		{
 			CodeNameRefer tagCodeName = PayTagGateway.REF_SCHEDULE_WORK;
@@ -39,7 +50,7 @@ namespace xhravemzdy_test
 			Assert.AreEqual(40, ((ScheduleWeeklyConcept)payTer[payTag]).HoursWeekly);
 		}
 
-		[Test()]
+		[Test]
 		public void test_base_salary()
 		{
 			CodeNameRefer tagCodeName = PayTagGateway.REF_SALARY_BASE;

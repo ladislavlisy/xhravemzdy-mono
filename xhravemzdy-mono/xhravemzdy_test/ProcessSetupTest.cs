@@ -6,7 +6,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Concepts;
 
-namespace xhravemzdy_test
+namespace PayrollLibrary.PayrollTest
 {
 	[TestFixture()]
 	public class ProcessSetupTest
@@ -19,17 +19,28 @@ namespace xhravemzdy_test
 
 		PayConceptGateway PayConcepts { get; set; }
 
-		public ProcessSetupTest()
-		{
-			PayPeriod = new PayrollPeriod(2013, 1);
+        public ProcessSetupTest()
+        {
+        }
 
-			PayTags = new PayTagGateway();
+        [SetUp]
+        public void Init()
+        {
+            PayPeriod = new PayrollPeriod(2013, 1);
 
-			PayConcepts = new PayConceptGateway();
+            PayTags = new PayTagGateway();
 
-			PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
-		}
-		[Test()]
+            PayConcepts = new PayConceptGateway();
+
+            PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+        }
+
+        [Test]
 		public void test_insert_CodeOrder_1_at_beginning()
 		{
 			uint period = PayrollPeriod.NOW;
@@ -48,7 +59,7 @@ namespace xhravemzdy_test
 			Assert.AreEqual((uint)1, payTag.CodeOrder);
 		}
 
-		[Test()]
+		[Test]
 		public void test_insert_CodeOrder_3_in_middle()
 		{
 			uint period = PayrollPeriod.NOW;
@@ -67,7 +78,7 @@ namespace xhravemzdy_test
 			Assert.AreEqual((uint)3, payTag.CodeOrder);
 		}
 
-		[Test()]
+		[Test]
 		public void test_insert_CodeOrder_6_at_end()
 		{
 			uint period = PayrollPeriod.NOW;
@@ -87,7 +98,7 @@ namespace xhravemzdy_test
 			Assert.AreEqual((uint)6, payTag.CodeOrder);
 		}
 
-		[Test()]
+		[Test]
 		public void test_payroll_period_january_2013()
 		{
 			Assert.AreEqual((uint)201301, PayProcess.Period.Code);

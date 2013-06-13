@@ -8,9 +8,9 @@ using PayrollLibrary.Business.Concepts;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 
-namespace xhravemzdy_test
+namespace PayrollLibrary.PayrollTest
 {
-	[TestFixture()]
+	[TestFixture]
     public class ProcessCalcTest
     {
         static readonly uint INTEREST_YES = 1;
@@ -27,6 +27,11 @@ namespace xhravemzdy_test
 
         public ProcessCalcTest()
         {
+        }
+
+        [SetUp]
+        public void Init()
+        {
             PayPeriod = new PayrollPeriod(2013, 1);
 
             PayTags = new PayTagGateway();
@@ -36,49 +41,54 @@ namespace xhravemzdy_test
             PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
         }
 
-        private object GetResultIncomeBase(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
+        [TearDown]
+        public void Cleanup()
+        {
+        }
+
+        private decimal GetResultIncomeBase(IDictionary<TagRefer, PayrollResult> results, CodeNameRefer result_ref)
         {
             var result_select = results.Where( (x) => (x.Key.Code == result_ref.Code)).ToDictionary(key => key.Key, value => value.Value);
             var result_value = result_select.Aggregate(0m, (agr, item) => (agr + item.Value.IncomeBase()));
             return result_value;
         }
 
-        private object GetResultEmployeeBase(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
+        private decimal GetResultEmployeeBase(IDictionary<TagRefer, PayrollResult> results, CodeNameRefer result_ref)
         {
             var result_select = results.Where((x) => (x.Key.Code == result_ref.Code)).ToDictionary(key => key.Key, value => value.Value);
             var result_value = result_select.Aggregate(0m, (agr, item) => (agr + item.Value.EmployeeBase()));
             return result_value;
         }
 
-        private object GetResultPayment(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
+        private decimal GetResultPayment(IDictionary<TagRefer, PayrollResult> results, CodeNameRefer result_ref)
         {
             var result_select = results.Where((x) => (x.Key.Code == result_ref.Code)).ToDictionary(key => key.Key, value => value.Value);
             var result_value = result_select.Aggregate(0m, (agr, item) => (agr + item.Value.Payment()));
             return result_value;
         }
 
-        private object GetResultAfterReliefA(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
+        private decimal GetResultAfterReliefA(IDictionary<TagRefer, PayrollResult> results, CodeNameRefer result_ref)
         {
             var result_select = results.Where((x) => (x.Key.Code == result_ref.Code)).ToDictionary(key => key.Key, value => value.Value);
             var result_value = result_select.Aggregate(0m, (agr, item) => (agr + item.Value.AfterReliefA()));
             return result_value;
         }
 
-        private object GetResultAfterReliefC(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
+        private decimal GetResultAfterReliefC(IDictionary<TagRefer,PayrollResult> results,CodeNameRefer result_ref)
         {
             var result_select = results.Where((x) => (x.Key.Code == result_ref.Code)).ToDictionary(key => key.Key, value => value.Value);
             var result_value = result_select.Aggregate(0m, (agr, item) => (agr + item.Value.AfterReliefC()));
             return result_value;
         }
 
-        [Test()]
+        [Test]
         public void test_payroll_period_returns_month_1_and_year_2013()
         {
            Assert.AreEqual((uint)1, PayPeriod.Month());
            Assert.AreEqual((uint)2013, PayPeriod.Year());
         }
 
-		[Test()]
+		[Test]
         public void test_working_schedule_returns_hours_weekly_schedule_40()
         {
             var schedule_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -93,7 +103,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_working_schedule_returns_hours_in_week_schedule_8_8_8_8_8_0_0()
         {
             var schedule_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -108,7 +118,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_working_schedule_returns_hours_in_first_seven_days_in_month_8_8_8_8_0_0_8()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -132,7 +142,7 @@ namespace xhravemzdy_test
             Assert.AreEqual(8, resultItem.MonthSchedule[6]);
         }
 
-		[Test()]
+		[Test]
         public void test_schedule_term_returns_date_from_date_end()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -154,7 +164,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_timesheet_period_returns_array_of_working_days()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -172,7 +182,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_timesheet_work_returns_array_of_working_days()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -206,7 +216,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_timesheet_work_returns_array_of_working_days_form_10_to_25_of_month()
         {
            Assert.AreEqual(PayPeriod.Month(), (uint)1);
@@ -232,7 +242,7 @@ namespace xhravemzdy_test
             Assert.AreEqual(8, resultItem.MonthSchedule[24-1]);
         }
 
-		[Test()]
+		[Test]
         public void test_hours_working_should_return_for_period_1_2013_sum_of_working_hours_184()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -252,7 +262,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_hours_absence_should_return_sum_of_absence_hours_0()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -272,7 +282,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_salary_base_should_return_for_salary_amount_15_000_salary_value_15_000()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -289,7 +299,7 @@ namespace xhravemzdy_test
             Assert.AreEqual(15000m, result_value);
         }
 
-		[Test()]
+		[Test]
         public void test_salary_base_should_return_for_salary_amount_20_000_salary_value_15_000()
         {
             var schedule_work_value = new Dictionary<string, object>() { { "hours_weekly", 40 } };
@@ -309,7 +319,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_insurance_health_base_returns_insurance_base_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -332,7 +342,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_insurance_social_base_returns_insurance_base_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -354,7 +364,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_income_base_returns_tax_base_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -376,7 +386,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_insurance_health_returns_insurance_amount_15000()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -400,7 +410,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_insurance_social_returns_insurance_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -432,7 +442,7 @@ namespace xhravemzdy_test
 // Tax bonus:                           0 Kč
 // Net income:                     12 405 Kč
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_employer_health_tax_base()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -457,7 +467,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_employer_social_tax_base()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -482,7 +492,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_payer_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -504,7 +514,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_disability_1_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -526,7 +536,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_disability_2_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -548,7 +558,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_disability_3_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -570,7 +580,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_studying_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -592,7 +602,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_claim_child_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -623,7 +633,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_rounded_base_for_tax_advance()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -652,7 +662,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_amount_before_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -684,7 +694,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_amount_after_relief_with_payer_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -716,7 +726,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_amount_after_relief_with_child_relief_945()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -749,7 +759,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_amount_after_relief_with_child_relief_0()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -782,7 +792,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_bonus_after_relief_with_child_relief()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -815,7 +825,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_tax_advanced_returns_tax_bonus_after_relief_with_child_relief_ztp()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -849,7 +859,7 @@ namespace xhravemzdy_test
         }
 
 
-		[Test()]
+		[Test]
         public void test_income_gross_returns_income_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -877,11 +887,11 @@ namespace xhravemzdy_test
             var result = PayProcess.Evaluate(result_tag);
             AmountResult resultItem = (AmountResult)result[result_tag];
 
-            Assert.AreEqual(15000m, resultItem.Amount);
+            Assert.AreEqual(15000m, resultItem.Amount());
         }
 
 
-		[Test()]
+		[Test]
         public void test_income_netto_returns_income_amount()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -909,11 +919,11 @@ namespace xhravemzdy_test
             var result = PayProcess.Evaluate(result_tag);
             AmountResult resultItem = (AmountResult)result[result_tag];
 
-            Assert.AreEqual(12405m, resultItem.Amount);
+            Assert.AreEqual(12405m, resultItem.Amount());
         }
 
 
-		[Test()]
+		[Test]
         public void test_income_netto_returns_netto_income_amount_with_bonus()
         {
             var empty_value = new Dictionary<string, object>() { };
@@ -943,7 +953,7 @@ namespace xhravemzdy_test
             var result = PayProcess.Evaluate(result_tag);
             AmountResult resultItem = (AmountResult)result[result_tag];
 
-            Assert.AreEqual((13350m + 1289m), resultItem.Amount);
+            Assert.AreEqual((13350m + 1289m), resultItem.Amount());
         }
     }
 }
