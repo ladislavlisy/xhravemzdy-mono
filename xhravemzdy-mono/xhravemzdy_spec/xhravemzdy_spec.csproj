@@ -34,9 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PayrollProcessSuite.feature.cs" />
-    <Compile Include="PayrollProcessSteps.cs" />
-    <Compile Include="PayrollProcessExamples.feature.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -48,5 +45,8 @@
   <ItemGroup>
     <None Include="PayrollProcessExamples.feature" />
     <None Include="PayrollProcessSuite.feature" />
+    <None Include="PayrollProcessExamples.feature.cs" />
+    <None Include="PayrollProcessSuite.feature.cs" />
+    <None Include="PayrollProcessSteps.cs" />
   </ItemGroup>
 </Project>

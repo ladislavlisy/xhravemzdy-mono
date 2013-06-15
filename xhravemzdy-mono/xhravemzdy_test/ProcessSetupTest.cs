@@ -8,7 +8,7 @@ using PayrollLibrary.Business.Concepts;
 
 namespace PayrollLibrary.PayrollTest
 {
-	[TestFixture()]
+	[TestFixture]
 	public class ProcessSetupTest
 	{
 		PayrollProcess PayProcess  { get; set; }
@@ -19,28 +19,28 @@ namespace PayrollLibrary.PayrollTest
 
 		PayConceptGateway PayConcepts { get; set; }
 
-        public ProcessSetupTest()
-        {
-        }
+		public ProcessSetupTest()
+		{
+		}
 
-        [SetUp]
-        public void Init()
-        {
-            PayPeriod = new PayrollPeriod(2013, 1);
+		[SetUp]
+		public void Init()
+		{
+			PayPeriod = new PayrollPeriod(2013, 1);
 
-            PayTags = new PayTagGateway();
+			PayTags = new PayTagGateway();
 
-            PayConcepts = new PayConceptGateway();
+			PayConcepts = new PayConceptGateway();
 
-            PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
-        }
+			PayProcess = new PayrollProcess(PayTags, PayConcepts, PayPeriod);
+		}
 
-        [TearDown]
-        public void Cleanup()
-        {
-        }
+		[TearDown]
+		public void Cleanup()
+		{
+		}
 
-        [Test]
+		[Test]
 		public void test_insert_CodeOrder_1_at_beginning()
 		{
 			uint period = PayrollPeriod.NOW;

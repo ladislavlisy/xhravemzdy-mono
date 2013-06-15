@@ -40,6 +40,8 @@
     <Compile Include="PayrollRoundingTest.cs" />
     <Compile Include="PayGaytewayTest.cs" />
     <Compile Include="ProcessCalcTest.cs" />
+    <Compile Include="PYGPayrollProcessTestCase.cs" />
+    <Compile Include="PayrollCalcNetIncomeTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
